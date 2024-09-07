@@ -55,7 +55,7 @@
             generateBtn.textContent = 'Generating...';
 
             try {
-                const response = await fetch('http://localhost:5000/generate_nft');
+                const response = await fetch('http://127.0.0.1:5000/generate_nft');
                 const blob = await response.blob();
                 const imageUrl = URL.createObjectURL(blob);
                 nftImage.src = imageUrl;
