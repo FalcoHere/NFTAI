@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Generated NFT Project</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            text-align: center;
+        }
+        #nftImage {
+            width: 300px;
+            height: 300px;
+            border: 2px solid #333;
+            margin-bottom: 20px;
+        }
+        #generateBtn {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #mintBtn {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>AI-Generated NFT Project</h1>
+        <img id="nftImage" alt="Generated NFT">
+        <br>
+        <button id="generateBtn">Generate NFT</button>
+        <button id="mintBtn">Mint NFT</button>
+    </div>
+
+    <script>
+        const generateBtn = document.getElementById('generateBtn');
+        const mintBtn = document.getElementById('mintBtn');
+        const nftImage = document.getElementById('nftImage');
+
+        async function generateNFT() {
+            generateBtn.disabled = true;
+            generateBtn.textContent = 'Generating...';
+
+            try {
+                const response = await fetch('http://localhost:5000/generate_nft');
+                const blob = await response.blob();
+                const imageUrl = URL.createObjectURL(blob);
+                nftImage.src = imageUrl;
+                mintBtn.style.display = 'inline-block';
+            } catch (error) {
+                console.error('Error generating NFT:', error);
+            } finally {
+                generateBtn.disabled = false;
+                generateBtn.textContent = 'Generate NFT';
+            }
+        }
+
+        function mintNFT() {
+            // Implement minting logic here
+            alert('NFT minted successfully!');
+        }
+
+        generateBtn.addEventListener('click', generateNFT);
+        mintBtn.addEventListener('click', mintNFT);
+    </script>
+</body>
+</html>
