@@ -31,22 +31,22 @@
     <script>
         document.getElementById('generateBackgroundBtn').addEventListener('click', async () => {
             const response = await fetch('http://127.0.0.1:5000/generate_background');
-            const blob = await response.blob();
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'background.png';
-            a.click();
+            if (response.ok) {
+                const data = await response.json();
+                alert(`Background saved at: ${data.path}`);
+            } else {
+                console.error('Error generating background:', response.statusText);
+            }
         });
 
         document.getElementById('generateCharacterBtn').addEventListener('click', async () => {
             const response = await fetch('http://127.0.0.1:5000/generate_character');
-            const blob = await response.blob();
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'character.png';
-            a.click();
+            if (response.ok) {
+                const data = await response.json();
+                alert(`Character saved at: ${data.path}`);
+            } else {
+                console.error('Error generating character:', response.statusText);
+            }
         });
 
         document.getElementById('insertMetadataBtn').addEventListener('click', () => {
